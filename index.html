@@ -307,6 +307,12 @@
         body.light-mode .glass-noblur::before {
             background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.2) 30%, rgba(255,255,255,0) 55%, rgba(0,0,0,0.05) 100%);
         }
+
+        /* Solo agrega blur, sin tocar el fondo/color que ya tenga el elemento */
+        .blur-only {
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            backdrop-filter: blur(16px) saturate(180%);
+        }
         /* --- MINI ANIMACIONES --- */
         @keyframes qtyPop {
             0%   { transform: scale(0.5); opacity: 0.4; }
@@ -371,13 +377,13 @@
                         <span>Mesa / Identificador</span>
                     </label>
                     <input type="text" id="table-name-input" placeholder="Ej: Mesa 1, Barra, Para Llevar..." 
-                           class="w-full text-lg font-black px-5 py-3.5 rounded-full border-2 border-white/10 bg-white/5 focus:outline-none focus:border-white text-ink placeholder-slate-500 transition-colors shadow-sm">
+                           class="blur-only w-full text-lg font-black px-5 py-3.5 rounded-full border-2 border-white/10 bg-white/5 focus:outline-none focus:border-white text-ink placeholder-slate-500 transition-colors shadow-sm">
                 </div>
                 <div class="flex items-center justify-end gap-2 shrink-0">
-                    <button onclick="toggleTheme()" title="Cambiar tema" class="btn-smooth w-11 h-11 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 text-base shrink-0">
+                    <button onclick="toggleTheme()" title="Cambiar tema" class="blur-only btn-smooth w-11 h-11 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 text-base shrink-0">
                         <i class="fa-solid fa-moon" id="theme-toggle-icon"></i>
                     </button>
-                    <div id="status-chip" class="bg-white/10 text-ink text-xs font-black px-4 py-2.5 rounded-full flex items-center gap-2 border border-white/15 theme-transition shadow-sm">
+                    <div id="status-chip" class="blur-only bg-white/10 text-ink text-xs font-black px-4 py-2.5 rounded-full flex items-center gap-2 border border-white/15 theme-transition shadow-sm">
                         <span class="w-2.5 h-2.5 rounded-full bg-ink animate-pulse shrink-0"></span>
                         <span id="status-chip-text" class="uppercase tracking-wide leading-none">NUEVO TICKET</span>
                     </div>
@@ -390,7 +396,7 @@
             
             <div class="flex items-center justify-between border-b border-white/5 pb-3.5 px-1">
                 <div class="flex items-center gap-2.5">
-                    <div class="bg-white/10 text-ink w-9 h-9 rounded-full flex items-center justify-center font-black text-xs shrink-0 border border-white/15">
+                    <div class="blur-only bg-white/10 text-ink w-9 h-9 rounded-full flex items-center justify-center font-black text-xs shrink-0 border border-white/15">
                         <i class="fa-solid fa-receipt text-ink"></i>
                     </div>
                     <div class="flex flex-col justify-center">
@@ -398,7 +404,7 @@
                         <span id="order-count-subtitle" class="text-[11px] text-slate-400 font-bold leading-tight mt-0.5">0 productos en total</span>
                     </div>
                 </div>
-                <span id="order-total-badge" class="price-mono text-xs sm:text-sm font-black px-4 py-2 rounded-full total-highlight border flex items-center justify-center leading-none">
+                <span id="order-total-badge" class="blur-only price-mono text-xs sm:text-sm font-black px-4 py-2 rounded-full total-highlight border flex items-center justify-center leading-none">
                     $0.00
                 </span>
             </div>
@@ -413,7 +419,7 @@
     </main>
 
     <!-- MENÚ NAVEGACIÓN INFERIOR UNIFICADO -->
-    <nav id="bottom-nav" class="liquid-glass fixed bottom-4 left-1/2 -translate-x-1/2 z-[70] shadow-2xl rounded-full px-2 py-2.5 flex items-center justify-around w-[94%] max-w-sm gap-1">
+    <nav id="bottom-nav" class="glass-noblur fixed bottom-4 left-1/2 -translate-x-1/2 z-[70] shadow-2xl rounded-full px-2 py-2.5 flex items-center justify-around w-[94%] max-w-sm gap-1">
         <div id="nav-active-pill" class="absolute top-1/2 left-0 h-11 rounded-full pointer-events-none opacity-0" style="transform: translate(0, -50%);"></div>
         
         <!-- 1. Inicio -->
@@ -956,9 +962,9 @@
             const badge = document.getElementById('order-total-badge');
             badge.innerText = `$${totalMesa}.00`;
             if (totalMesa > 0) {
-                badge.className = `price-mono text-xs sm:text-sm font-black px-4 py-1.5 rounded-full border ${editingOrderId ? 'edit-bg edit-text border-white/20' : 'total-highlight'}`;
+                badge.className = `blur-only price-mono text-xs sm:text-sm font-black px-4 py-1.5 rounded-full border ${editingOrderId ? 'edit-bg edit-text border-white/20' : 'total-highlight'}`;
             } else {
-                badge.className = "price-mono text-xs sm:text-sm font-black px-4 py-1.5 rounded-full bg-white/5 text-slate-500 border border-white/10";
+                badge.className = "blur-only price-mono text-xs sm:text-sm font-black px-4 py-1.5 rounded-full bg-white/5 text-slate-500 border border-white/10";
             }
 
             document.getElementById('order-count-subtitle').innerText = `${totalItemsCount} producto${totalItemsCount === 1 ? '' : 's'} en total`;
@@ -983,7 +989,7 @@
                             </div>
 
                             <div class="flex items-center gap-2 shrink-0">
-                                <div class="flex items-center gap-1.5 bg-[#26272B] p-1 rounded-full border-2 border-white/10 shadow-sm">
+                                <div class="blur-only flex items-center gap-1.5 bg-[#26272B] p-1 rounded-full border-2 border-white/10 shadow-sm">
                                     <button data-qty-batch="${batch.batchId}" data-qty-delta="-1" 
                                             class="btn-smooth w-9 h-9 bg-zinc-700 hover:bg-zinc-600 text-white font-black text-xl rounded-full flex items-center justify-center shadow-sm select-none shrink-0 leading-none pb-0.5">
                                         -
@@ -1158,7 +1164,7 @@
 
                         <div class="flex items-center justify-end pt-2 border-t border-white/5">
                             ${qty > 0 ? `
-                                <div class="flex items-center gap-1.5 bg-white/5 p-1 rounded-full border-2 border-white/15">
+                                <div class="blur-only flex items-center gap-1.5 bg-white/5 p-1 rounded-full border-2 border-white/15">
                                     <button data-temp-item="${item.id}" data-temp-delta="-1" class="btn-smooth w-10 h-10 bg-zinc-700 hover:bg-zinc-600 font-black text-xl rounded-full text-white flex items-center justify-center shadow-sm select-none shrink-0 leading-none pb-0.5">-</button>
                                     <span class="${item.id === lastChangedItemId ? 'qty-pop' : ''} font-black text-base text-center text-ink select-none min-w-[24px] h-10 flex items-center justify-center leading-none">${qty}</span>
                                     <button data-temp-item="${item.id}" data-temp-delta="1" class="btn-smooth w-10 h-10 bg-emerald-600 hover:bg-emerald-700 font-black text-xl rounded-full text-white flex items-center justify-center shadow-sm select-none shrink-0 leading-none pb-0.5">+</button>
@@ -1432,7 +1438,7 @@
             document.getElementById('editing-banner').classList.add('active');
 
             const statusChip = document.getElementById('status-chip');
-            statusChip.className = "edit-bg edit-text text-xs font-black px-4 py-2.5 rounded-full flex items-center gap-2 border border-white/20 theme-transition shadow-sm";
+            statusChip.className = "blur-only edit-bg edit-text text-xs font-black px-4 py-2.5 rounded-full flex items-center gap-2 border border-white/20 theme-transition shadow-sm";
             document.getElementById('status-chip-text').innerText = "MODO EDICIÓN";
 
             const finishBtn = document.getElementById('finish-btn');
@@ -1445,7 +1451,7 @@
             document.getElementById('editing-banner').classList.remove('active');
 
             const statusChip = document.getElementById('status-chip');
-            statusChip.className = "bg-white/10 text-ink text-xs font-black px-4 py-2.5 rounded-full flex items-center gap-2 border border-white/15 theme-transition shadow-sm";
+            statusChip.className = "blur-only bg-white/10 text-ink text-xs font-black px-4 py-2.5 rounded-full flex items-center gap-2 border border-white/15 theme-transition shadow-sm";
             document.getElementById('status-chip-text').innerText = "NUEVO TICKET";
 
             const finishBtn = document.getElementById('finish-btn');
